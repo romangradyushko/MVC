@@ -61,6 +61,10 @@ class View {
         todos.forEach(todo => {
           const li = this.createElement('div', 'div')
           li.id = todo.id
+
+          const date1 = this.createElement('div')
+          let date = new Date(); 
+          date1.textContent = date.getDate() + '.' + date.getMonth() + '.' + date.getUTCFullYear() + ' ' + date.getHours() + ':' + date.getUTCMinutes();
   
           const checkbox = this.createElement('input')
           checkbox.type = 'checkbox'
@@ -80,7 +84,7 @@ class View {
   
           const deleteButton = this.createElement('button', 'delete')
           deleteButton.textContent = 'Delete'
-          li.append(checkbox, span, deleteButton)
+          li.append(checkbox, span, date1, deleteButton)
   
           // Append nodes
           this.todoList.append(li)
