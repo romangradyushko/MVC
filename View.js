@@ -13,18 +13,31 @@ class View {
       this.input.name = 'todo'
       this.submitButton = this.createElement('button')
       this.submitButton.textContent = 'Submit'
-      this.form.append(this.input, this.submitButton)
+      
+      this.newButton = this.createElement('button')
+      this.newButton.textContent = 'New'
+
+      this.form.append(this.input, this.submitButton, this.newButton)
       this.title = this.createElement('h1')
       this.title.textContent = 'Note'
       this.todoList = this.createElement('h2', 'note-list')
-      this.app.append(this.title, this.form, this.todoList)
+      this.dateInp = this.createElement('input','date-inp')
+      this.dateInp.type = 'date'
+      this.app.append(this.title, this.form, this.dateInp, this.todoList)
   
       this._temporaryTodoText = ''
       this._initLocalListeners()
     }
   
+    get _todoTitle() {
+      return this.input.value
+    }
     get _todoText() {
       return this.input.value
+    }
+
+    get _todoDate() {
+      return this.dateInp.value
     }
   
     _resetInput() {
@@ -61,11 +74,11 @@ class View {
         todos.forEach(todo => {
           const li = this.createElement('div', 'div')
           li.id = todo.id
-
-          const date1 = this.createElement('div')
-          let date = new Date(); 
-          date1.textContent = date.getDate() + '.' + date.getMonth() + '.' + date.getUTCFullYear() + ' ' + date.getHours() + ':' + date.getUTCMinutes();
-  
+          const title = this.createElement('div');
+          title.textContent = todo.text;
+          const date1 = this.createElement('div');
+          date1.textContent = todo.date;
+          
           const checkbox = this.createElement('input')
           checkbox.type = 'checkbox'
           checkbox.checked = todo.complete
@@ -84,7 +97,7 @@ class View {
   
           const deleteButton = this.createElement('button', 'delete')
           deleteButton.textContent = 'Delete'
-          li.append(checkbox, span, date1, deleteButton)
+          li.append(checkbox, title, span, date1, deleteButton)
   
           // Append nodes
           this.todoList.append(li)
@@ -108,7 +121,7 @@ class View {
         event.preventDefault()
   
         if (this._todoText) {
-          handler(this._todoText)
+          handler(this._todoTitle, this._todoText, this._todoDate)
           this._resetInput()
         }
       })

@@ -17,10 +17,12 @@ class Model {
       localStorage.setItem('todos', JSON.stringify(todos))
     }
   
-    addTodo(todoText) {
+    addTodo(todoTitle, todoText, date1) {
       const todo = {
         id: this.todos.length > 0 ? this.todos[this.todos.length - 1].id + 1 : 1,
+        title: todoTitle,
         text: todoText,
+        date: date1,
         complete: false,
       }
   
@@ -29,9 +31,9 @@ class Model {
       this._commit(this.todos)
     }
   
-    editTodo(id, updatedText) {
+    editTodo(id, updatedText) {//todoTitle, updatedText) {
       this.todos = this.todos.map(todo =>
-        todo.id === id ? { id: todo.id, text: updatedText, complete: todo.complete } : todo
+        todo.id === id ? { id: todo.id, text: updatedText, complete: todo.complete } : todo//title: todoTitle, text: updatedText, complete: todo.complete } : todo
       )
   
       this._commit(this.todos)

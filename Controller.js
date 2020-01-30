@@ -26,12 +26,12 @@ class Controller {
       this.view.displayTodos(todos)
     }
   
-    handleAddTodo = todoText => {
-      this.model.addTodo(todoText)
+    handleAddTodo = (todoTitle, todoText, date1) => {
+      this.model.addTodo(todoTitle, todoText, date1)
     }
   
-    handleEditTodo = (id, todoText) => {
-      this.model.editTodo(id, todoText)
+    handleEditTodo = (id, todoTitle, todoText) => {
+      this.model.editTodo(id, todoTitle, todoText)
     }
   
     handleDeleteTodo = id => {
